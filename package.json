@@ -24,7 +24,7 @@
         "dev": "nuxi dev playground",
         "dev:build": "nuxi build playground",
         "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-        "release": "bun lint && bun test && bun prepack && changelogen --release && git push --follow-tags",
+        "release": "bun lint && bun run test && bun prepack && changelogen --release && git push --follow-tags",
         "lint": "eslint .",
         "test": "vitest run",
         "test:watch": "vitest watch",
@@ -51,5 +51,6 @@
         "vue-tsc": "^2.2.0",
         "happy-dom": "^17.1.1",
         "vitest-environment-nuxt": "^1.0.1"
-    }
+    },
+    "version": "0.0.1"
 }
