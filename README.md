@@ -4,7 +4,7 @@
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/DCC-BS/logger.bs.js/publish.yml)
 [![codecov](https://codecov.io/gh/DCC-BS/logger.bs.js/graph/badge.svg?token=3PBNL8OR24)](https://codecov.io/gh/DCC-BS/logger.bs.js)
 
-{{ TODO }}
+Default logger use for all nuxt apps.
 
 ## Quick Setup
 
@@ -31,7 +31,26 @@ That's it! You can now use logger.bs.js in your Nuxt app ✨
 
 ## Usage
 
-{{ TODO }}
+You can get the logger over the composable `useLogger`:
+
+```ts
+const logger = useLogger();
+
+logger.infor('log a info message');
+logger.warn('log a warn message');
+logger.error('log a error');
+```
+
+On the api side you can get the logger with the util function `getEventLogger`:
+
+```ts
+export default defineEventHandler(async (event) => {
+    const logger = getEventLogger(event);
+    logger.info('log messages');
+});
+```
+
+when the module is installed all failed request will be logged as an error.
 
 ## Release a new Version
 Commit your changes and then:
