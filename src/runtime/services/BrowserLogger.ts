@@ -40,16 +40,6 @@ export type LogFunction = (message: string, context?: Record<string, unknown>) =
 export type LogMeta = Record<string, unknown>;
 
 /**
- * Custom error for unimplemented methods
- */
-class NotImplementedError extends Error {
-    constructor(methodName: string) {
-        super(`Method ${methodName} is not implemented in BrowserLogger`);
-        this.name = 'NotImplementedError';
-    }
-}
-
-/**
  * Browser-compatible logger class that supports structured logging
  * with a Winston-like API
  */
@@ -344,17 +334,17 @@ export class BrowserLogger implements ILogger {
      * @throws NotImplementedError
      */
     public startTimer(): any {
-        throw new NotImplementedError('startTimer');
+        throw new Error('startTimer is not implemented in browser environment');
     }
 
     /**
      * Profile execution time (not implemented in browser environment)
      * @param id Profile identifier
      * @param meta Additional metadata
-     * @throws NotImplementedError
+     * @throws Error
      */
     public profile(id: string | number, meta?: Record<string, unknown>): this {
-        throw new NotImplementedError('profile');
+        throw new Error('profile is not implemented in browser environment');
     }
 
     /**

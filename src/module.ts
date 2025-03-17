@@ -27,9 +27,5 @@ export default defineNuxtModule({
             handler: resolver.resolve('./runtime/server/middleware/requestLogger.ts'),
             middleware: true,
         });
-
-        // examples: 
-        // addImportsDir(resolver.resolve('./runtime/composables'));
-        // addTypeTemplate({ filename: 'types/commands.d.ts', src: resolver.resolve('./runtime/models/commands.d.ts') });
     },
 })
