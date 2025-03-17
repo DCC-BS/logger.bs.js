@@ -1,4 +1,16 @@
 # Changelog
+## v0.0.5
+
+[compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v0.0.4...v0.0.5)
+
+### 💅 Refactors
+
+- Update logger plugins to use Nuxt 3 app composition ([123c669](https://github.com/DCC-BS/logger.bs.js/commit/123c669))
+
+### ❤️ Contributors
+
+- Tobias Bollinger <tobias.bollinger@gmail.com>
+
 ## v0.0.4
 
 [compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v0.0.3...v0.0.4)
