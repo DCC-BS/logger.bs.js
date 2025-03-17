@@ -1,5 +1,5 @@
-import { H3Event } from 'h3';
-import { Logger } from 'winston';
+import type { H3Event } from 'h3';
+import type { Logger } from 'winston';
 import { getWinstonLogger } from '../../services/winstonLogger.server';
 
 /**

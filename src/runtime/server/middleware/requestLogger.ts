@@ -1,4 +1,4 @@
-import { H3Event } from 'h3';
+import type { H3Event } from 'h3';
 import { getEventLogger } from '../utils/eventLogger';
 
 const logAllRequest = false;
@@ -12,7 +12,7 @@ const logAllRequest = false;
 export default defineEventHandler(async (event: H3Event): Promise<void> => {
     // Get the runtime config to check environment
     const config = useRuntimeConfig();
-    const isDev = config.public.environment === 'development' || process.dev;
+    const isDev = config.public.environment === 'development' || import.meta.dev;
 
     // Extract useful information from the request
     const method = event.node.req.method;

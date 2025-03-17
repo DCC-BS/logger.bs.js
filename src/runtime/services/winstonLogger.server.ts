@@ -1,9 +1,9 @@
+import path from 'node:path';
 import { createLogger, format, transports } from 'winston';
-import * as Transport from 'winston-transport';
-import { type ILogger } from './ILogger';
+import type * as Transport from 'winston-transport';
+import type { ILogger } from './ILogger';
 const { combine, timestamp, logstash, simple } = format;
 const { Console, File } = transports;
-import path from 'path';
 
 export function getWinstonLogger(): ILogger {
     return process.env.NODE_ENV === 'production'

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, type MockedFunction } from 'vitest';
 import { BrowserLogger } from '../src/runtime/services/BrowserLogger';
 
 describe('BrowserLogger', () => {
@@ -30,7 +30,7 @@ describe('BrowserLogger', () => {
     });
 
     // Helper to get the first argument of the mock call
-    const getFirstCallArg = (mockFn: any) => {
+    const getFirstCallArg = (mockFn: MockedFunction<(...args: unknown[]) => unknown>) => {
         return mockFn.mock.calls[0]?.[0];
     };
 

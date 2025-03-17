@@ -1,4 +1,4 @@
-import { type ILogger } from './ILogger';
+import type { ILogger } from './ILogger';
 
 /**
  * Returns a new logger instance based on the current environment.

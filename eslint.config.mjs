@@ -17,7 +17,9 @@ export default createConfigForNuxt({
 })
     .append({
         rules: {
-            'indent': ['error', 4],
+            'indent': ['error', 4, { 'SwitchCase': 1 }],
+            // Disable the unified-signatures rule that's complaining about function overloads
+            '@typescript-eslint/unified-signatures': 'off',
         }
     }
     );

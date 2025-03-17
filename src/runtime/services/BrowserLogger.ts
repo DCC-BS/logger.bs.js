@@ -45,13 +45,15 @@ export type LogMeta = Record<string, unknown>;
  */
 export class BrowserLogger implements ILogger {
     private level: LogLevel;
-    private defaultContext: any[];
+    private defaultContext: unknown[];
 
     /**
      * Creates a new browser-compatible logger instance
      * @param options Configuration options for the logger
+     * @param options.level The log level to use for the logger
+     * @param options.defaultContext Additional metadata to include in log messages
      */
-    constructor(options?: { level?: LogLevel; defaultContext?: any[] }) {
+    constructor(options?: { level?: LogLevel; defaultContext?: unknown[] }) {
         this.level = options?.level ?? 'info';
         this.defaultContext = options?.defaultContext || [];
     }
@@ -63,7 +65,7 @@ export class BrowserLogger implements ILogger {
      * @param meta Additional metadata or context
      * @returns Formatted log objects for console output
      */
-    private formatLog(level: LogLevel, message: string, meta?: any[]): [string, Record<string, unknown>] {
+    private formatLog(level: LogLevel, message: string, meta?: unknown[]): [string, Record<string, unknown>] {
         const timestamp = new Date().toISOString();
 
         // Process meta arguments properly
@@ -139,32 +141,46 @@ export class BrowserLogger implements ILogger {
      * @returns The logger instance for chaining
      */
     private logToConsole(level: string, message: string, meta: unknown[]): ILogger {
-        const [formattedMessage, combinedContext] = this.formatLog(level as LogLevel, message, meta as any[]);
+        const [formattedMessage, combinedContext] = this.formatLog(level as LogLevel, message, meta);
 
         // Empty context should not be logged
         const hasContext = Object.keys(combinedContext).length > 0;
 
         switch (level) {
             case 'error':
-                hasContext ? console.error(
-                    `%c${formattedMessage}`,
-                    levelColors.error,
-                    combinedContext
-                ) : console.error(`%c${formattedMessage}`, levelColors.error);
+                if (hasContext) {
+                    console.error(
+                        `%c${formattedMessage}`,
+                        levelColors.error,
+                        combinedContext);
+                } else {
+                    console.error(`%c${formattedMessage}`, levelColors.error);
+                }
                 break;
             case 'warn':
-                hasContext ? console.warn(
-                    `%c${formattedMessage}`,
-                    levelColors.warn,
-                    combinedContext
-                ) : console.warn(`%c${formattedMessage}`, levelColors.warn);
+                if (hasContext) {
+                    console.warn(
+                        `%c${formattedMessage}`,
+                        levelColors.warn,
+                        combinedContext);
+                }
+                else {
+                    console.warn(`%c${formattedMessage}`, levelColors.warn);
+                }
+
                 break;
             default:
-                hasContext ? console.log(
-                    `%c${formattedMessage}`,
-                    levelColors[level as LogLevel] || 'color: inherit',
-                    combinedContext
-                ) : console.log(`%c${formattedMessage}`, levelColors[level as LogLevel] || 'color: inherit');
+                if (hasContext) {
+                    console.log(
+                        `%c${formattedMessage}`,
+                        levelColors[level as LogLevel] || 'color: inherit',
+                        combinedContext)
+                }
+                else {
+                    console.log(
+                        `%c${formattedMessage}`,
+                        levelColors[level as LogLevel] || 'color: inherit');
+                }
         }
 
         return this;
@@ -301,10 +317,10 @@ export class BrowserLogger implements ILogger {
 
     /**
      * Create a child logger with additional default context
-     * @param childContext Additional context for the child logger
+     * @param options Additional context for the child logger
      * @returns A new logger instance with combined context
      */
-    public child(options: Object): this {
+    public child(options: object): this {
         return new BrowserLogger({
             level: this.level,
             defaultContext: { ...this.defaultContext, ...options }
@@ -333,17 +349,16 @@ export class BrowserLogger implements ILogger {
      * Start a timer (not implemented in browser environment)
      * @throws NotImplementedError
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public startTimer(): any {
         throw new Error('startTimer is not implemented in browser environment');
     }
 
     /**
      * Profile execution time (not implemented in browser environment)
-     * @param id Profile identifier
-     * @param meta Additional metadata
      * @throws Error
      */
-    public profile(id: string | number, meta?: Record<string, unknown>): this {
+    public profile(_: string | number, __?: Record<string, unknown>): this {
         throw new Error('profile is not implemented in browser environment');
     }
 

@@ -1,25 +1,25 @@
 interface Profiler {
     logger: ILogger;
     start: number;
-    done(info?: any): boolean;
+    done(info?: unknown): boolean;
 }
 
 interface LogEntry {
     level: string;
     message: string;
-    [optionName: string]: any;
+    [optionName: string]: unknown;
 }
 
 interface LeveledLogMethod {
-    (message: string, ...meta: any[]): ILogger;
-    (message: any): ILogger;
+    (message: string, ...meta: unknown[]): ILogger;
+    (message: string): ILogger;
     (infoObject: object): ILogger;
 }
 
 interface LogMethod {
-    (level: string, message: string, ...meta: any[]): ILogger;
+    (level: string, message: string, ...meta: unknown[]): ILogger;
     (entry: LogEntry): ILogger;
-    (level: string, message: any): ILogger;
+    (level: string, message: unknown): ILogger;
 }
 
 export interface ILogger {
@@ -41,9 +41,9 @@ export interface ILogger {
     silly: LeveledLogMethod;
 
     startTimer(): Profiler;
-    profile(id: string | number, meta?: Record<string, any>): this;
+    profile(id: string | number, meta?: Record<string, unknown>): this;
 
-    child(options: Object): this;
+    child(options: object): this;
 
     isLevelEnabled(level: string): boolean;
     isErrorEnabled(): boolean;

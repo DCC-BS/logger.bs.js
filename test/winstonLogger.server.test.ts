@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { getProductionLogger, getDevelopmentLogger } from '../src/runtime/services/winstonLogger.server';
 import { createLogger, format, transports } from 'winston';
-import path from 'path';
 
 // Mock winston
 vi.mock('winston', () => {
