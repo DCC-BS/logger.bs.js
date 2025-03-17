@@ -1,5 +1,7 @@
 import type { H3Event } from 'h3';
 import { getEventLogger } from '../utils/eventLogger';
+import { defineEventHandler, getRequestHeader } from 'h3';
+import { useRuntimeConfig } from 'nuxt/app';
 
 const logAllRequest = false;
 

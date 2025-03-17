@@ -1,3 +1,4 @@
+import { defineNitroPlugin } from "#imports";
 import { getWinstonLogger } from "../../services/winstonLogger.server";
 
 export default defineNitroPlugin((nitroApp) => {

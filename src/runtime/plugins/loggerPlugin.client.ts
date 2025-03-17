@@ -1,6 +1,4 @@
-import { getNewLogger } from "../services/getLogger";
-
 export default defineNuxtPlugin(async (nuxtApp) => {
-    const logger = await getNewLogger();
+    const logger = (await import('../services/browserLoggerFactory')).getBrowserLogger();
     nuxtApp.provide('logger', logger);
 });

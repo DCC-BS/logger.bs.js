@@ -15,16 +15,29 @@ export default defineNuxtModule({
         // Using the resolver to get the absolute path ensures it works when the module is used in other projects
         nuxt.options.build = nuxt.options.build || {};
         nuxt.options.build.transpile = nuxt.options.build.transpile || [];
-        nuxt.options.build.transpile.push(resolver.resolve('./runtime/services/logger/winstonLogger.server'));
+        nuxt.options.build.transpile.push(
+            ({ isServer }) => {
+                if (isServer) {
+                    return resolver.resolve('./runtime/services/logger/winstonLogger.server')
+                }
+                return false;
+            });
 
         addImportsDir(resolver.resolve('./runtime/composables'));
-        addPlugin(resolver.resolve('./runtime/plugins/loggerPlugin.ts'));
+        addPlugin({
+            src: resolver.resolve('./runtime/plugins/loggerPlugin.client.js'),
+            mode: 'client'
+        });
+        addPlugin({
+            src: resolver.resolve('./runtime/plugins/loggerPlugin.server.js'),
+            mode: 'server'
+        });
 
         addServerImportsDir(resolver.resolve('./runtime/server/utils'));
-        addServerPlugin(resolver.resolve('./runtime/server/plugins/winston.ts'));
+        addServerPlugin(resolver.resolve('./runtime/server/plugins/winston.js'));
 
         addServerHandler({
-            handler: resolver.resolve('./runtime/server/middleware/requestLogger.ts'),
+            handler: resolver.resolve('./runtime/server/middleware/requestLogger.js'),
             middleware: true,
         });
     },
