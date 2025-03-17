@@ -25,19 +25,19 @@ export default defineNuxtModule({
 
         addImportsDir(resolver.resolve('./runtime/composables'));
         addPlugin({
-            src: resolver.resolve('./runtime/plugins/loggerPlugin.client.js'),
+            src: resolver.resolve('./runtime/plugins/loggerPlugin.client.ts'),
             mode: 'client'
         });
         addPlugin({
-            src: resolver.resolve('./runtime/plugins/loggerPlugin.server.js'),
+            src: resolver.resolve('./runtime/plugins/loggerPlugin.server.ts'),
             mode: 'server'
         });
 
         addServerImportsDir(resolver.resolve('./runtime/server/utils'));
-        addServerPlugin(resolver.resolve('./runtime/server/plugins/winston.js'));
+        addServerPlugin(resolver.resolve('./runtime/server/plugins/winston.ts'));
 
         addServerHandler({
-            handler: resolver.resolve('./runtime/server/middleware/requestLogger.js'),
+            handler: resolver.resolve('./runtime/server/middleware/requestLogger.ts'),
             middleware: true,
         });
     },

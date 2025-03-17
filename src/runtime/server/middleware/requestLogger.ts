@@ -1,7 +1,6 @@
 import type { H3Event } from 'h3';
 import { getEventLogger } from '../utils/eventLogger';
 import { defineEventHandler, getRequestHeader } from 'h3';
-import { useRuntimeConfig } from 'nuxt/app';
 
 const logAllRequest = false;
 
@@ -12,10 +11,6 @@ const logAllRequest = false;
  * @param event - The H3 event object containing request information
  */
 export default defineEventHandler(async (event: H3Event): Promise<void> => {
-    // Get the runtime config to check environment
-    const config = useRuntimeConfig();
-    const isDev = config.public.environment === 'development' || import.meta.dev;
-
     // Extract useful information from the request
     const method = event.node.req.method;
     const url = event.node.req.url;
@@ -35,7 +30,7 @@ export default defineEventHandler(async (event: H3Event): Promise<void> => {
     };
 
     // In development mode, log all requests immediately
-    if (isDev && logAllRequest) {
+    if (logAllRequest) {
         logger.info('Incoming request', requestInfo);
         return;
     }
