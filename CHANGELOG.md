@@ -1,4 +1,8 @@
 # Changelog
+## v1.0.0
+
+[compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v0.0.5...v1.0.0)
+
 ## v0.0.5
 
 [compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v0.0.4...v0.0.5)
