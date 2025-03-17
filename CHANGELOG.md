@@ -1,4 +1,16 @@
 # Changelog
+## v0.0.3
+
+[compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v0.0.2...v0.0.3)
+
+### 💅 Refactors
+
+- Migrate logger and middleware plugins to TypeScript ([7b51efa](https://github.com/DCC-BS/logger.bs.js/commit/7b51efa))
+
+### ❤️ Contributors
+
+- Tobias Bollinger <tobias.bollinger@gmail.com>
+
 ## v0.0.2
 
 [compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v0.0.1...v0.0.2)
