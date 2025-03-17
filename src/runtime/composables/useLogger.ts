@@ -1,3 +1,4 @@
+import { useNuxtApp } from "#app";
 import type { ILogger } from "../services/ILogger";
 
 /**
