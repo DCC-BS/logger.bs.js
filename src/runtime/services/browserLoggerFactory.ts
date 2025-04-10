@@ -1,12 +1,13 @@
 import { BrowserLogger, type LogLevel } from "./BrowserLogger";
 import type { ILogger } from "./ILogger";
+import { useRuntimeConfig } from "#imports";
 
 // Store loggers by name for reuse
 const loggers: Record<string, BrowserLogger> = {};
 
 interface LoggerOptions {
-	loglevel?: LogLevel;
-	meta?: unknown[];
+    loglevel?: LogLevel;
+    meta?: unknown[];
 }
 
 /**
@@ -15,17 +16,17 @@ interface LoggerOptions {
  * @returns A logger instance
  */
 export function getBrowserLogger(name?: string): ILogger {
-	const loggername = name ?? "default";
+    const loggername = name ?? "default";
 
-	const config = useRuntimeConfig().public.logger_bs as LoggerOptions;
+    const config = useRuntimeConfig().public.logger_bs as LoggerOptions;
 
-	if (!loggers[loggername]) {
-		// Create a new logger with the specified name in the context
-		loggers[loggername] = new BrowserLogger({
-			level: config?.loglevel ?? "info",
-			defaultContext: config?.meta || [],
-		});
-	}
+    if (!loggers[loggername]) {
+        // Create a new logger with the specified name in the context
+        loggers[loggername] = new BrowserLogger({
+            level: config?.loglevel ?? "info",
+            defaultContext: config?.meta || [],
+        });
+    }
 
-	return loggers[loggername];
+    return loggers[loggername];
 }
