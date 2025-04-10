@@ -1,6 +1,6 @@
+import { useRuntimeConfig } from "#imports";
 import { BrowserLogger, type LogLevel } from "./BrowserLogger";
 import type { ILogger } from "./ILogger";
-import { useRuntimeConfig } from "#imports";
 
 // Store loggers by name for reuse
 const loggers: Record<string, BrowserLogger> = {};
