@@ -1,4 +1,20 @@
 # Changelog
+## v1.1.1
+
+[compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v1.1.0...v1.1.1)
+
+### 🩹 Fixes
+
+- Update package.json to correct module exports and main entry point ([ed8c097](https://github.com/DCC-BS/logger.bs.js/commit/ed8c097))
+
+### 💅 Refactors
+
+- Update ILogger interface and related logging implementations ([4dd8e4e](https://github.com/DCC-BS/logger.bs.js/commit/4dd8e4e))
+
+### ❤️ Contributors
+
+- Tobias Bollinger <tobias.bollinger@bs.ch>
+
 ## v1.1.0
 
 [compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v1.0.1...v1.1.0)
