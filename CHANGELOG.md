@@ -1,4 +1,17 @@
 # Changelog
+## v1.1.3
+
+[compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v1.1.2...v1.1.3)
+
+### 💅 Refactors
+
+- Fix import order in module and browserLoggerFactory files ([16fcf32](https://github.com/DCC-BS/logger.bs.js/commit/16fcf32))
+- Rename workflow from 'Publish Package to GitHub' to 'Build and Test' ([c1edd00](https://github.com/DCC-BS/logger.bs.js/commit/c1edd00))
+
+### ❤️ Contributors
+
+- Tobias Bollinger <tobias.bollinger@bs.ch>
+
 ## v1.1.2
 
 [compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v1.1.1...v1.1.2)
