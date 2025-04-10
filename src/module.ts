@@ -1,49 +1,98 @@
-import { defineNuxtModule, addImportsDir, addPlugin, addServerPlugin, addServerImportsDir, createResolver, addServerHandler } from '@nuxt/kit'
-import type { LogLevel } from './runtime/services/BrowserLogger';
-import type { ILogger } from './runtime/services/ILogger';
+import {
+	addImportsDir,
+	addPlugin,
+	addServerHandler,
+	addServerImportsDir,
+	addServerPlugin,
+	createResolver,
+	defineNuxtModule,
+} from "@nuxt/kit";
+import type { LogLevel } from "./runtime/services/BrowserLogger";
+import type { ILogger } from "./runtime/services/ILogger";
 
 // Re-export types
 export { type LogLevel, type ILogger };
 
-export default defineNuxtModule({
-    meta: {
-        name: 'logger.bs.js',
-        configKey: 'logger.bs.js',
-    },
-    // Default configuration options of the Nuxt module
-    defaults: {
-    },
-    setup(_options, nuxt) {
-        const resolver = createResolver(import.meta.url);
+interface LoggerOptions {
+	loglevel?: LogLevel;
+	meta?: unknown[];
+}
 
-        // Add build configuration to transpile the logger service
-        // Using the resolver to get the absolute path ensures it works when the module is used in other projects
-        nuxt.options.build = nuxt.options.build || {};
-        nuxt.options.build.transpile = nuxt.options.build.transpile || [];
-        nuxt.options.build.transpile.push(
-            ({ isServer }) => {
-                if (isServer) {
-                    return resolver.resolve('./runtime/services/logger/winstonLogger.server')
-                }
-                return false;
-            });
+export default defineNuxtModule<LoggerOptions>({
+	meta: {
+		name: "logger.bs.js",
+		configKey: "logger.bs.js",
+	},
+	// Default configuration options of the Nuxt module
+	defaults: {
+		loglevel: "info",
+		meta: [] as unknown[],
+	},
+	setup(_options, nuxt) {
+		const resolver = createResolver(import.meta.url);
 
-        addImportsDir(resolver.resolve('./runtime/composables'));
-        addPlugin({
-            src: resolver.resolve('./runtime/plugins/loggerPlugin.client'),
-            mode: 'client'
-        });
-        addPlugin({
-            src: resolver.resolve('./runtime/plugins/loggerPlugin.server'),
-            mode: 'server'
-        });
+		nuxt.options.runtimeConfig.public.logger_bs = defu(
+			nuxt.options.runtimeConfig.public.logger_bs!,
+			{
+				loglevel: _options.loglevel,
+				meta: _options.meta,
+			},
+		);
 
-        addServerImportsDir(resolver.resolve('./runtime/server/utils'));
-        addServerPlugin(resolver.resolve('./runtime/server/plugins/winston'));
+		// Add build configuration to transpile the logger service
+		// Using the resolver to get the absolute path ensures it works when the module is used in other projects
+		nuxt.options.build = nuxt.options.build || {};
+		nuxt.options.build.transpile = nuxt.options.build.transpile || [];
+		nuxt.options.build.transpile.push(({ isServer }) => {
+			if (isServer) {
+				return resolver.resolve(
+					"./runtime/services/logger/winstonLogger.server",
+				);
+			}
+			return false;
+		});
 
-        addServerHandler({
-            handler: resolver.resolve('./runtime/server/middleware/requestLogger'),
-            middleware: true,
-        });
-    },
-})
+		addImportsDir(resolver.resolve("./runtime/composables"));
+		addPlugin({
+			src: resolver.resolve("./runtime/plugins/loggerPlugin.client"),
+			mode: "client",
+		});
+		addPlugin({
+			src: resolver.resolve("./runtime/plugins/loggerPlugin.server"),
+			mode: "server",
+		});
+
+		addServerImportsDir(resolver.resolve("./runtime/server/utils"));
+		addServerPlugin(resolver.resolve("./runtime/server/plugins/winston"));
+
+		addServerHandler({
+			handler: resolver.resolve("./runtime/server/middleware/requestLogger"),
+			middleware: true,
+		});
+	},
+});
+
+function defu<T extends Record<string, any>>(
+	object: T,
+	defaults: Record<string, any>,
+): T {
+	const result = { ...object };
+
+	for (const key in defaults) {
+		if (result[key] === undefined) {
+			(result as Record<string, any>)[key] = defaults[key];
+		} else if (
+			defaults[key] &&
+			typeof defaults[key] === "object" &&
+			result[key] &&
+			typeof result[key] === "object"
+		) {
+			(result as Record<string, any>)[key] = defu(
+				(result as Record<string, any>)[key],
+				defaults[key],
+			);
+		}
+	}
+
+	return result;
+}
