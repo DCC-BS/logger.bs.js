@@ -1,4 +1,16 @@
 # Changelog
+## v1.1.0
+
+[compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v1.0.1...v1.1.0)
+
+### 🚀 Enhancements
+
+- Re-export LogLevel and ILogger types from runtime services ([f4751c1](https://github.com/DCC-BS/logger.bs.js/commit/f4751c1))
+
+### ❤️ Contributors
+
+- Tobias Bollinger <tobias.bollinger@bs.ch>
+
 ## v1.0.1
 
 [compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v0.0.5...v1.0.1)
