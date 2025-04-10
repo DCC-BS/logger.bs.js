@@ -1,4 +1,16 @@
 # Changelog
+## v1.0.1
+
+[compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v0.0.5...v1.0.1)
+
+### 🏡 Chore
+
+- **release:** V1.0.0 ([04d9abe](https://github.com/DCC-BS/logger.bs.js/commit/04d9abe))
+
+### ❤️ Contributors
+
+- Tobias Bollinger <tobias.bollinger@gmail.com>
+
 ## v1.0.0
 
 [compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v0.0.5...v1.0.0)
