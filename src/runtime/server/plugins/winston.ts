@@ -2,19 +2,19 @@ import { defineNitroPlugin } from "#imports";
 import { getWinstonLogger } from "../../services/winstonLogger.server";
 
 export default defineNitroPlugin((nitroApp) => {
-	// Import the logger function from the utils folder
-	const logger = getWinstonLogger();
+    // Import the logger function from the utils folder
+    const logger = getWinstonLogger();
 
-	// Provide the logger to the application
-	nitroApp.hooks.hook("error", (error) => {
-		logger.error("An error occurred:", error);
-	});
+    // Provide the logger to the application
+    nitroApp.hooks.hook("error", (error) => {
+        logger.error("An error occurred:", error);
+    });
 
-	// Expose the variable to the Nitro context
-	nitroApp.hooks.hook("request", (event) => {
-		event.context.logger = logger;
-	});
+    // Expose the variable to the Nitro context
+    nitroApp.hooks.hook("request", (event) => {
+        event.context.logger = logger;
+    });
 
-	// Log a message to indicate that the logger is ready
-	logger.info("Winston logger initialized");
+    // Log a message to indicate that the logger is ready
+    logger.info("Winston logger initialized");
 });

@@ -9,8 +9,8 @@ import { getWinstonLogger } from "../../services/winstonLogger.server";
  * @returns A Winston Logger instance
  */
 export function getEventLogger(event: H3Event): Logger {
-	if (!event.context.logger) {
-		event.context.logger = getWinstonLogger();
-	}
-	return event.context.logger as Logger;
+    if (!event.context.logger) {
+        event.context.logger = getWinstonLogger();
+    }
+    return event.context.logger as Logger;
 }
