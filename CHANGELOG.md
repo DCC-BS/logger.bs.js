@@ -1,4 +1,16 @@
 # Changelog
+## v1.1.2
+
+[compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v1.1.1...v1.1.2)
+
+### 💅 Refactors
+
+- Standardize formatting and improve interface naming in logger module ([61fc6ed](https://github.com/DCC-BS/logger.bs.js/commit/61fc6ed))
+
+### ❤️ Contributors
+
+- Tobias Bollinger <tobias.bollinger@bs.ch>
+
 ## v1.1.1
 
 [compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v1.1.0...v1.1.1)
