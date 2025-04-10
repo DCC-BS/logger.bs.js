@@ -1,4 +1,9 @@
 import { defineNuxtModule, addImportsDir, addPlugin, addServerPlugin, addServerImportsDir, createResolver, addServerHandler } from '@nuxt/kit'
+import type { LogLevel } from './runtime/services/BrowserLogger';
+import type { ILogger } from './runtime/services/ILogger';
+
+// Re-export types
+export { type LogLevel, type ILogger };
 
 export default defineNuxtModule({
     meta: {
