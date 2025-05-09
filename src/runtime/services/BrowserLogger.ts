@@ -49,16 +49,69 @@ export type LogMeta = Record<string, unknown>;
 export class BrowserLogger implements ILogger {
     private level: LogLevel;
     private defaultContext: unknown[];
+    private includeStackTrace: boolean;
+    private stackTraceLimit: number;
 
     /**
      * Creates a new browser-compatible logger instance
      * @param options Configuration options for the logger
      * @param options.level The log level to use for the logger
      * @param options.defaultContext Additional metadata to include in log messages
+     * @param options.includeStackTrace Whether to include stack traces in log messages
+     * @param options.stackTraceLimit Maximum number of stack frames to include (default: 10)
      */
-    constructor(options?: { level?: LogLevel; defaultContext?: unknown[] }) {
+    constructor(options?: { 
+        level?: LogLevel; 
+        defaultContext?: unknown[];
+        includeStackTrace?: boolean;
+        stackTraceLimit?: number;
+    }) {
         this.level = options?.level ?? "info";
         this.defaultContext = options?.defaultContext || [];
+        this.includeStackTrace = options?.includeStackTrace ?? false;
+        this.stackTraceLimit = options?.stackTraceLimit ?? 10;
+    }
+
+    /**
+     * Captures and formats the current stack trace
+     * @returns A formatted stack trace string
+     */
+    private captureStackTrace(): string | undefined {
+        if (!this.includeStackTrace) {
+            return undefined;
+        }
+
+        try {
+            // Create an Error to capture the stack trace
+            const err = new Error();
+            const stack = err.stack;
+            
+            if (!stack) {
+                return undefined;
+            }
+
+            // Parse and clean up the stack trace
+            // Split by lines, skip the first two (Error, captureStackTrace)
+            // and filter out BrowserLogger methods to show only user code
+            const stackLines = stack.split('\n')
+                .slice(2) // Skip "Error" and this method
+                .filter(line => 
+                    !line.includes("at BrowserLogger.") || 
+                    line.includes("at BrowserLogger.log")
+                )
+                .slice(1, this.stackTraceLimit + 1); // Skip the logger call itself and limit depth
+            
+            if (stackLines.length === 0) {
+                return undefined;
+            }
+
+            return stackLines
+                .map(line => line.trim())
+                .join('\n');
+        } catch (e) {
+            // Fail silently if stack trace capture fails
+            return undefined;
+        }
     }
 
     /**
@@ -86,7 +139,19 @@ export class BrowserLogger implements ILogger {
             });
         }
 
-        const combinedContext = { ...this.defaultContext, ...context };
+        // Create a proper Record<string, unknown> to avoid type errors
+        const combinedContext: Record<string, unknown> = { ...this.defaultContext };
+        
+        // Copy all properties from context to combinedContext
+        Object.keys(context).forEach(key => {
+            combinedContext[key] = context[key];
+        });
+        
+        // Capture stack trace if enabled
+        const stackTrace = this.captureStackTrace();
+        if (stackTrace) {
+            combinedContext.stackTrace = stackTrace;
+        }
 
         // Create the formatted message part
         const formattedMessage = `[${timestamp}] [${level.toUpperCase()}]: ${message}`;
@@ -367,6 +432,8 @@ export class BrowserLogger implements ILogger {
         return new BrowserLogger({
             level: this.level,
             defaultContext: { ...this.defaultContext, ...options },
+            includeStackTrace: this.includeStackTrace,
+            stackTraceLimit: this.stackTraceLimit,
         }) as this;
     }
 
@@ -463,5 +530,37 @@ export class BrowserLogger implements ILogger {
      */
     public isSillyEnabled(): boolean {
         return this.isLevelEnabled("silly");
+    }
+
+    /**
+     * Enable stack trace in log messages
+     * @param limit Optional number of stack frames to include (default: keeps current setting)
+     * @returns The logger instance for chaining
+     */
+    public enableStackTrace(limit?: number): this {
+        this.includeStackTrace = true;
+        if (limit !== undefined) {
+            this.stackTraceLimit = limit;
+        }
+        return this;
+    }
+
+    /**
+     * Disable stack trace in log messages
+     * @returns The logger instance for chaining
+     */
+    public disableStackTrace(): this {
+        this.includeStackTrace = false;
+        return this;
+    }
+
+    /**
+     * Set the maximum number of stack frames to include in stack traces
+     * @param limit Maximum number of stack frames to include
+     * @returns The logger instance for chaining
+     */
+    public setStackTraceLimit(limit: number): this {
+        this.stackTraceLimit = limit;
+        return this;
     }
 }

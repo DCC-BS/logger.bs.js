@@ -16,6 +16,8 @@ export { type LogLevel, type ILogger };
 export interface LoggerModuleOptions {
     loglevel?: LogLevel;
     meta?: unknown[];
+    includeStackTrace?: boolean;
+    stackTraceLimit?: number;
 }
 
 export default defineNuxtModule<LoggerModuleOptions>({
@@ -23,10 +25,15 @@ export default defineNuxtModule<LoggerModuleOptions>({
         name: "logger.bs.js",
         configKey: "logger.bs.js",
     },
-    // Default configuration options of the Nuxt module
-    defaults: {
-        loglevel: "info",
-        meta: [] as unknown[],
+    defaults(nuxt) {
+        const isDev = nuxt.options.dev;
+
+        return {
+            loglevel: "info",
+            meta: [] as unknown[],
+            includeStackTrace: isDev,
+            stackTraceLimit: 10,
+        }
     },
     setup(_options, nuxt) {
         const resolver = createResolver(import.meta.url);
