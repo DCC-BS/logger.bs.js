@@ -1,4 +1,20 @@
 # Changelog
+## v1.2.0
+
+[compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v1.1.3...v1.2.0)
+
+### 🚀 Enhancements
+
+- Add stack trace options to BrowserLogger and update factory to support new configuration ([3cc3537](https://github.com/DCC-BS/logger.bs.js/commit/3cc3537))
+
+### 💅 Refactors
+
+- Standardize formatting and improve code readability in logger interfaces and implementations ([da677d8](https://github.com/DCC-BS/logger.bs.js/commit/da677d8))
+
+### ❤️ Contributors
+
+- Tobias Bollinger <tobias.bollinger@bs.ch>
+
 ## v1.1.3
 
 [compare changes](https://github.com/DCC-BS/logger.bs.js/compare/v1.1.2...v1.1.3)
