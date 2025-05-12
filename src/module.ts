@@ -33,7 +33,7 @@ export default defineNuxtModule<LoggerModuleOptions>({
             meta: [] as unknown[],
             includeStackTrace: isDev,
             stackTraceLimit: 10,
-        }
+        };
     },
     setup(_options, nuxt) {
         const resolver = createResolver(import.meta.url);

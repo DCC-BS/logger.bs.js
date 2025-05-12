@@ -1,5 +1,5 @@
-import { useRuntimeConfig } from "#imports";
 import type { LoggerModuleOptions } from "~/src/module";
+import { useRuntimeConfig } from "#imports";
 import { BrowserLogger } from "./BrowserLogger";
 import type { ILogger } from "./ILogger";
 
