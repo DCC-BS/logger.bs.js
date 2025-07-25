@@ -50,7 +50,7 @@
         "typescript": "~5.8.0",
         "vitest": "^3.0.6",
         "vitest-environment-nuxt": "^1.0.1",
-        "vue-tsc": "^2.2.0"
+        "vue-tsc": "^3.0.0"
     },
     "version": "1.4.0"
 }
