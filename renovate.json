@@ -5,6 +5,8 @@
     ":automergeAll",
     ":prImmediately"
   ],
+  "internalChecksFilter": "strict",
+  "minimumReleaseAge": "14 days",
   "managers": {
     "bun": {}
   },
@@ -15,13 +17,7 @@
         "minor",
         "patch"
       ],
-      "matchConfidence": [
-        "high",
-        "very high"
-      ],
-      "automerge": true,
-      "prHourlyLimit": 0,
-      "prConcurrentLimit": 0
+      "automerge": true
     }
   ],
   "lockFileMaintenance": {
