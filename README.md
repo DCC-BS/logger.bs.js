@@ -1,5 +1,8 @@
 # logger.bs.js
 
+> [!IMPORTANT]
+> This project is deprecated use [Nuxt-Layers](https://github.com/DCC-BS/nuxt-layers) instead.
+
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/DCC-BS/logger.bs.js)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/DCC-BS/logger.bs.js/publish.yml)
 [![codecov](https://codecov.io/gh/DCC-BS/logger.bs.js/graph/badge.svg?token=75EFOJ6H0Q)](https://codecov.io/gh/DCC-BS/logger.bs.js)
